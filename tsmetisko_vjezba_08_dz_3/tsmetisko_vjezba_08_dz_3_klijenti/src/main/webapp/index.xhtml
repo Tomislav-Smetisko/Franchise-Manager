@@ -1,0 +1,84 @@
+<ui:composition template="predlozak.xhtml"
+	xmlns:ui="jakarta.faces.facelets" xmlns:h="jakarta.faces.html"
+	xmlns:f="jakarta.faces.core">
+
+	<ui:define name="title">Zadaća 3 - Početak Partner</ui:define>
+	<ui:define name="content">
+		<ul>
+			<ui:fragment>
+				<li><h:link outcome="/provjeraRadaPosluzitelja.xhtml"
+						value="Provjera rada posluzitelja" /></li>
+			</ui:fragment>
+			<ui:fragment>
+				<li><h:link outcome="/pregledPartnera.xhtml"
+						value="Pregled partnera/restorana" /></li>
+			</ui:fragment>
+			<ui:fragment>
+				<li><h:link outcome="/dodajKorisnika.xhtml"
+						value="Dodaj novog korisnika" /></li>
+			</ui:fragment>
+			<ui:fragment
+				rendered="#{prijavaKorisnika.prijavljen and odabirParnera.omoguciOdabirPartnera}">
+				<li><h:link outcome="odabirPartnera.xhtml"
+						value="Odabir partnera" /></li>
+			</ui:fragment>
+			<ui:fragment
+				rendered="#{prijavaKorisnika.prijavljen and (prijavaKorisnika.partnerOdabran)}">
+				<li><h:link outcome="/privatno/pregledJelovnika.xhtml"
+						value="Pregled jelovnika" /></li>
+			</ui:fragment>
+			<ui:fragment
+				rendered="#{prijavaKorisnika.prijavljen and (prijavaKorisnika.partnerOdabran)}">
+				<li><h:link outcome="/privatno/pregledKartePica.xhtml"
+						value="Pregled karte pića" /></li>
+			</ui:fragment>
+			<ui:fragment
+				rendered="#{prijavaKorisnika.prijavljen and (prijavaKorisnika.partnerOdabran) and (vidljivost.novaNarudzba())}">
+				<li><h:form>
+						<h:commandLink action="#{restZahtjevi.postNarudzba}"
+							value="Nova narudžba" />
+					</h:form></li>
+			</ui:fragment>
+			<ui:fragment
+				rendered="#{prijavaKorisnika.prijavljen and (prijavaKorisnika.partnerOdabran) and (vidljivost.dopunaPlacanje())}">
+				<li><h:form>
+						<h:commandLink action="#{restZahtjevi.dopunaNarudzbe}"
+							value="Dopuna narudžbe" />
+					</h:form></li>
+			</ui:fragment>
+			<ui:fragment
+				rendered="#{prijavaKorisnika.prijavljen and (prijavaKorisnika.partnerOdabran) and (vidljivost.dopunaPlacanje())}">
+				<li><h:form>
+						<h:commandLink action="#{restZahtjevi.placanjeNarudzbe}"
+							value="Plaćanje narudžbe" />
+					</h:form></li>
+			</ui:fragment>
+			<ui:fragment rendered="#{prijavaKorisnika.prijavljen and (prijavaKorisnika.admin)}">
+				<li><h:link outcome="/admin/aktivirajSpavanje.xhtml"
+						value="Aktiviraj spavanje" /></li>
+			</ui:fragment>
+			<ui:fragment rendered="#{prijavaKorisnika.prijavljen and (prijavaKorisnika.admin)}">
+				<li><h:link outcome="/admin/pregledKorisnika.xhtml"
+						value="Pregled korisnika" /></li>
+			</ui:fragment>
+			<ui:fragment rendered="#{prijavaKorisnika.prijavljen and (prijavaKorisnika.admin)}">
+				<li><h:link outcome="/admin/pregledImePrezimeKorisnika.xhtml"
+						value="Pregled imena i prezimena korisnika" /></li>
+			</ui:fragment>
+			<ui:fragment rendered="#{prijavaKorisnika.prijavljen and (prijavaKorisnika.admin)}">
+				<li><h:link outcome="/admin/pregledObracuna.xhtml"
+						value="Pregled obračuna" /></li>
+			</ui:fragment>
+			<ui:fragment rendered="#{prijavaKorisnika.prijavljen and (prijavaKorisnika.admin)}">
+				<li><h:link outcome="/admin/pregledRada.xhtml"
+						value="Pregled rada" /></li>
+			</ui:fragment>
+			<ui:fragment rendered="#{prijavaKorisnika.prijavljen and (prijavaKorisnika.admin)}">
+				<li><h:link outcome="/admin/nadzornaKonzolaPartnera.xhtml"
+						value="Nadzorna konzola partnera/restorana" /></li>
+			</ui:fragment>
+		</ul>
+	</ui:define>
+	<ui:define name="nav">
+	</ui:define>
+</ui:composition>

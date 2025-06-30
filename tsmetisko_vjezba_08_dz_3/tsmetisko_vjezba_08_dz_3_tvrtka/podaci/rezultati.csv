@@ -1,0 +1,10 @@
+timeStamp,elapsed,label,responseCode,responseMessage,threadName,dataType,success,failureMessage,bytes,sentBytes,grpThreads,allThreads,URL,Latency,IdleTime,Connect
+1745827850390,16,Ispravna komanda KRAJ,500,java.net.ConnectException: Connection refused,Grupa dretvi za kraj 1-1,,false,Response was null,0,0,1,1,null,0,0,16
+1745828189056,17,Ispravna komanda KRAJ,500,java.net.ConnectException: Connection refused,Grupa dretvi za kraj 1-1,,false,Response was null,0,0,1,1,null,0,0,17
+1745828291216,16,Ispravna komanda KRAJ,500,java.net.ConnectException: Connection refused,Grupa dretvi za kraj 1-1,,false,Response was null,0,0,1,1,null,0,0,16
+1745828568326,8,Ispravna komanda KRAJ,200,OK,Grupa dretvi za kraj 1-1,text,false,Test failed: text expected to contain /OK/,74,0,1,1,null,8,0,5
+1745856315795,22,Ispravna komanda KRAJ,500,java.net.ConnectException: Connection refused,Grupa dretvi za kraj 1-1,,false,Response was null,0,0,1,1,null,0,0,22
+1746372848926,31,Ispravna komanda KRAJ,500,java.net.ConnectException: Connection refused,Grupa dretvi za kraj 1-1,,false,Response was null,0,0,1,1,null,0,0,31
+1746375156237,22,Ispravna komanda KRAJ,500,java.net.ConnectException: Connection refused,Grupa dretvi za kraj 1-1,,false,Response was null,0,0,1,1,null,0,0,22
+1746375819223,26,Ispravna komanda KRAJ,200,OK,Grupa dretvi za kraj 1-1,text,false,Test failed: text expected to contain /OK/,46,0,1,1,null,26,0,6
+1746375991706,11,Ispravna komanda KRAJ,200,OK,Grupa dretvi za kraj 1-1,text,false,Test failed: text expected to contain /OK/,46,0,1,1,null,10,0,5

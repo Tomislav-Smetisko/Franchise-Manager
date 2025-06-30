@@ -1,0 +1,60 @@
+<ui:composition template="predlozak.xhtml"
+	xmlns:ui="jakarta.faces.facelets" xmlns:h="jakarta.faces.html"
+	xmlns:f="jakarta.faces.core">
+
+	<ui:define name="title">Zadaća 3 - Detalji partnera/restorana</ui:define>
+	<ui:define name="content">
+		<h2>Detalji partnera/restorana</h2>
+		<br />
+		<h:dataTable value="#{odabirParnera.getPartner(param.id)}" var="p" border="1">
+
+			<h:column>
+				<f:facet name="header">ID</f:facet>
+        #{p.id()}
+    </h:column>
+
+			<h:column>
+				<f:facet name="header">Naziv</f:facet>
+        #{p.naziv()}
+    </h:column>
+
+			<h:column>
+				<f:facet name="header">Vrsta kuhinje</f:facet>
+        #{p.vrstaKuhinje()}
+    </h:column>
+
+			<h:column>
+				<f:facet name="header">Adresa</f:facet>
+        #{p.adresa()}
+    </h:column>
+    <h:column>
+				<f:facet name="header">Mrežna vrata</f:facet>
+        #{p.mreznaVrata()}
+    </h:column>
+    <h:column>
+				<f:facet name="header">Mrežna vrata kraj</f:facet>
+        #{p.mreznaVrataKraj()}
+    </h:column>
+    <h:column>
+				<f:facet name="header">GPS Širina</f:facet>
+        #{p.gpsSirina()}
+    </h:column>
+    <h:column>
+				<f:facet name="header">GPS Dužina</f:facet>
+        #{p.gpsDuzina()}
+    </h:column>
+    <h:column>
+				<f:facet name="header">Sigurnosni kod</f:facet>
+        #{p.sigurnosniKod()}
+    </h:column>
+    <h:column>
+				<f:facet name="header">Admin kod</f:facet>
+        #{p.adminKod()}
+    </h:column>
+
+		</h:dataTable>
+
+	</ui:define>
+	<ui:define name="nav">
+	</ui:define>
+</ui:composition>

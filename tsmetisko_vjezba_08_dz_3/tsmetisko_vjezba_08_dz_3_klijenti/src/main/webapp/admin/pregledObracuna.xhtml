@@ -1,0 +1,79 @@
+<ui:composition template="../predlozak.xhtml"
+	xmlns:ui="jakarta.faces.facelets" xmlns:h="jakarta.faces.html"
+	xmlns:f="jakarta.faces.core">
+
+	<ui:define name="title">Zadaća 3 - Pregled obračuna</ui:define>
+	<ui:define name="content">
+		<h2>Pregled obračuna</h2>
+		<br />
+
+		<h:form>
+			<h4>Odaberite partnera</h4>
+			<h:outputLabel for="partner">
+				<h:outputText value="Partner: " />
+			</h:outputLabel>
+			<h:selectOneMenu value="#{pregledObracuna.partner}">
+				<f:selectItems value="#{odabirParnera.partneri}" var="p"
+					itemLabel="#{p.naziv()}" itemValue="#{p.id()}" />
+			</h:selectOneMenu>
+			<br /><br />
+
+			<h:outputLabel for="vrijemeOd" value="Vrijeme od: " />
+			<h:inputText id="vrijemeOd" value="#{pregledObracuna.vrijemeOd}">
+				<f:passThroughAttribute name="type" value="datetime-local" />
+			</h:inputText>
+			<br /><br />
+			
+			<h:outputLabel for="vrijemeDo" value="Vrijeme do: " />
+			<h:inputText id="vrijemeDo" value="#{pregledObracuna.vrijemeDo}">
+				<f:passThroughAttribute name="type" value="datetime-local" />
+			</h:inputText>
+			<br /><br />
+
+			<h:commandButton id="submit" value=" Pretraži "
+				action="#{pregledObracuna.dohvatiObracune}" />
+		</h:form>
+		<br /><br />
+
+		<h:dataTable value="#{pregledObracuna.rezultati}" var="o" border="1" rendered="#{not empty pregledObracuna.rezultati}">
+
+			<h:column>
+				<f:facet name="header">RB</f:facet>
+        #{o.rb}
+    </h:column>
+
+			<h:column>
+				<f:facet name="header">Partner</f:facet>
+        #{o.partneri.id}
+    </h:column>
+
+			<h:column>
+				<f:facet name="header">ID</f:facet>
+        #{o.id}
+    </h:column>
+    
+			<h:column>
+				<f:facet name="header">Jelo</f:facet>
+        #{o.jelo}
+    </h:column>
+    
+    	<h:column>
+				<f:facet name="header">Količina</f:facet>
+        #{o.kolicina}
+    </h:column>
+    <h:column>
+				<f:facet name="header">Cijena</f:facet>
+        #{o.cijena}
+    </h:column>
+    
+    <h:column>
+				<f:facet name="header">Vrijeme</f:facet>
+        #{o.vrijeme}
+    </h:column>
+
+		</h:dataTable>
+
+	</ui:define>
+	<ui:define name="nav">
+	</ui:define>
+</ui:composition>

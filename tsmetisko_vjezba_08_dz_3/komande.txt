@@ -1,0 +1,106 @@
+docker network create --subnet=20.24.5.0/24 mreza_tsmetisko
+
+docker network inspect mreza_tsmetisko
+
+docker volume create svezak_tsmetisko
+
+docker network inspect svezak_tsmetisko
+
+sudo java -classpath ../lib/hsqldb.jar org.hsqldb.server.Server --database.0 file:nwtis_1 --dbname.0 nwtis_1 --port 9001
+
+sudo cp podaci/*.* /var/lib/docker/volumes/svezak_tsmetisko/_data
+
+############TVRTKA DOCKER#################
+docker build -t tvrtka_tsmetisko -f Dockerfile .
+
+docker run -it -d --network=mreza_tsmetisko --ip 20.24.5.2 \
+--name=tvrtka_tsmetisko --hostname=tvrtka_tsmetisko \
+--mount source=svezak_tsmetisko,target=/usr/app/podaci \
+tvrtka_tsmetisko:latest
+
+docker network remove
+
+##########PARTNER DOCKER#################
+docker build -t partner_tsmetisko -f Dockerfile .
+
+docker run -it -d --network=mreza_tsmetisko --ip 20.24.5.3 \
+ --name=partner_tsmetisko --hostname=partner_tsmetisko \
+ --mount source=svezak_tsmetisko,target=/usr/app/podaci \
+ partner_tsmetisko:latest
+ 
+ 
+ #####POKRETANJE HSQLDB##########
+sudo java -classpath ../lib/hsqldb.jar org.hsqldb.server.Server --database.0 file:nwtis_1 --dbname.0 nwtis_1 --port 9001
+
+######POKRETANJE H2##############
+sudo java -Dfile.encoding=UTF-8 -cp /opt/h2/bin/h2-2.3.232.jar org.h2.tools.Server -tcp -tcpAllowOthers -webAllowOthers -baseDir /opt/database -ifNotExists
+
+
+########DOCKER HSQLDB###############
+docker build -t bp_tsmetisko_hsql -f Dockerfile.hsql .
+
+docker run --env-file hsqldb.env -it -d \
+--network=mreza_tsmetisko \
+--ip 20.24.5.30 \
+--name=bp_tsmetisko_hsql \
+--hostname=bp_tsmetisko_hsql \
+--mount type=bind,source=/opt/hsql/hsqldb/data,target=/opt/data \
+bp_tsmetisko_hsql:latest
+
+
+###############DOCKER H2##############
+docker build -t bp_tsmetisko_h2 -f Dockerfile.h2 .
+
+docker run -it -d \
+--network=mreza_tsmetisko \
+--ip 20.24.5.31 \
+--name=bp_tsmetisko_h2 \
+--hostname=bp_tsmetisko_h2 \
+--mount type=bind,source=/opt/database,target=/opt/database \
+bp_tsmetisko_h2:latest
+
+
+###############DOCKER REST#####################
+docker build -t servis_tsmetisko -f Dockerfile .
+
+docker run -it -d \
+--network=mreza_tsmetisko \
+--ip 20.24.5.20 \
+--name=servis_tsmetisko \
+--hostname=servis_tsmetisko \
+servis_tsmetisko:latest
+
+
+#################PREGLED LOKALNOG DIREKTORIJA################
+ls -al /opt/m2/edu/unizg/foi/nwtis/tsmetisko/
+
+rm -Rf /opt/m2/edu/unizg/foi/nwtis/tsmetisko/
+
+
+######POKRETANJE PAYARA###################
+cd /opt/payara_web/glassfish/bin
+
+./startserv
+
+//u projektu klijenti
+xdg-open http://localhost:4848
+
+#############PREBACIVANJE APLIKACIJE NA PAYARU################
+//u klijenti
+mvn cargo:redeploy -P ServerEE-local
+
+//pokretanje aplikacije
+xdg-open http://localhost:8080
+xdg-open http://localhost:8080/tsmetisko_vjezba_08_dz_3_klijenti
+
+
+#########BRISANJE MREZE NA LABOSIMA###############
+docker network rm mreza_fbudic21
+
+
+##########POKRETANJE APK KLIJENTI################
+mvn clean package
+mvn cargo:redeploy -P ServerEE-local
+xdg-open http://localhost:8080/tsmetisko_vjezba_08_dz_3_klijenti
+
+

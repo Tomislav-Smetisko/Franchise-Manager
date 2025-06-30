@@ -1,0 +1,56 @@
+<ui:composition template="../predlozak.xhtml"
+	xmlns:ui="jakarta.faces.facelets" xmlns:h="jakarta.faces.html"
+	xmlns:f="jakarta.faces.core">
+
+	<ui:define name="title">Zadaća 3 - Pregled korisnika</ui:define>
+	<ui:define name="content">
+		<h2>Pregled korisnika</h2>
+		<br />
+
+		<h:form>
+			<h4>Pretraži korisnike po imenu i prezimenu</h4>
+			<h:panelGrid columns="2" cellpadding="5">
+				<h:outputLabel for="ime" value="Ime:" />
+				<h:inputText id="ime" value="#{pregledKorisnika.ime}" />
+
+				<h:outputLabel for="prezime" value="Prezime:" />
+				<h:inputText id="prezime" value="#{pregledKorisnika.prezime}" />
+
+				<h:commandButton value="Pretraži"
+					action="#{pregledKorisnika.pretraziKorisnika}" />
+			</h:panelGrid>
+		</h:form>
+
+		<br />
+		<h:dataTable value="#{pregledKorisnika.korisnici}" var="k" border="1">
+
+			<h:column>
+				<f:facet name="header">Korisnik</f:facet>
+        #{k.korisnik()}
+    </h:column>
+
+			<h:column>
+				<f:facet name="header">Ime</f:facet>
+        #{k.ime()}
+    </h:column>
+
+			<h:column>
+				<f:facet name="header">Prezime</f:facet>
+        #{k.prezime()}
+		    </h:column>
+
+			<h:column>
+				<f:facet name="header">Lozinka</f:facet>
+		        #{k.lozinka()}
+		    </h:column>
+
+			<h:column>
+				<f:facet name="header">Email</f:facet>
+		        #{k.email()}
+		    </h:column>
+		</h:dataTable>
+
+	</ui:define>
+	<ui:define name="nav">
+	</ui:define>
+</ui:composition>

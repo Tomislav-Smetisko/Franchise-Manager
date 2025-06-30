@@ -1,0 +1,42 @@
+<ui:composition template="../predlozak.xhtml"
+	xmlns:ui="jakarta.faces.facelets" xmlns:h="jakarta.faces.html"
+	xmlns:f="jakarta.faces.core">
+
+	<ui:define name="title">Zadaća 3 - Pregled imena i prezimena korisnika</ui:define>
+	<ui:define name="content">
+		<h2>Pregled imena i prezimena korisnika</h2>
+		<br />
+		
+		<h:dataTable value="#{pregledKorisnika.getKorisnik(param.id)}" var="k" border="1">
+
+			<h:column>
+				<f:facet name="header">Korisnik</f:facet>
+        #{k.korisnik()}
+    </h:column>
+
+			<h:column>
+				<f:facet name="header">Ime</f:facet>
+        #{k.ime()}
+    </h:column>
+
+			<h:column>
+				<f:facet name="header">Prezime</f:facet>
+        #{k.prezime()}
+		    </h:column>
+		    
+		    <h:column>
+				<f:facet name="header">Lozinka</f:facet>
+        #{k.lozinka()}
+    </h:column>
+    
+    <h:column>
+				<f:facet name="header">Email</f:facet>
+        #{k.email()}
+    </h:column>
+		    
+		</h:dataTable>
+
+	</ui:define>
+	<ui:define name="nav">
+	</ui:define>
+</ui:composition>

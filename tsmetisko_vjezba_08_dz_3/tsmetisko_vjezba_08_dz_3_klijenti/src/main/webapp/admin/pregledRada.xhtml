@@ -1,0 +1,74 @@
+<ui:composition template="../predlozak.xhtml"
+	xmlns:ui="jakarta.faces.facelets" xmlns:h="jakarta.faces.html"
+	xmlns:f="jakarta.faces.core">
+
+	<ui:define name="title">Zadaća 3 - Pregled rada</ui:define>
+	<ui:define name="content">
+		<h2>Pregled rada</h2>
+		<br />
+
+		<h:form>
+			<h4>Odaberite korisnika</h4>
+			<h:outputLabel for="korisnik">
+				<h:outputText value="Korisnik: " />
+			</h:outputLabel>
+			<h:selectOneMenu value="#{pregledRada.korisnik}">
+				<f:selectItems value="#{pregledRada.dohvatiKorisnike()}" var="p"
+					itemLabel="#{p.korisnik()}" itemValue="#{p.korisnik()}" />
+			</h:selectOneMenu>
+			<br /><br />
+
+			<h:outputLabel for="vrijemeOd" value="Vrijeme od: " />
+			<h:inputText id="vrijemeOd" value="#{pregledRada.vrijemeOd}">
+				<f:passThroughAttribute name="type" value="datetime-local" />
+			</h:inputText>
+			<br /><br />
+			
+			<h:outputLabel for="vrijemeDo" value="Vrijeme do: " />
+			<h:inputText id="vrijemeDo" value="#{pregledRada.vrijemeDo}">
+				<f:passThroughAttribute name="type" value="datetime-local" />
+			</h:inputText>
+			<br /><br />
+
+			<h:commandButton id="submit" value=" Pretraži "
+				action="#{pregledRada.dohvatiZapise}" />
+		</h:form>
+		<br /><br />
+
+		<h:dataTable value="#{pregledRada.rezultati}" var="z" border="1" rendered="#{not empty pregledRada.rezultati}">
+
+			<h:column>
+				<f:facet name="header">ID</f:facet>
+        #{z.id}
+    </h:column>
+    
+			<h:column>
+				<f:facet name="header">Vrijeme</f:facet>
+        #{z.vrijeme}
+    </h:column>
+    
+    	<h:column>
+				<f:facet name="header">Korisničko ime</f:facet>
+        #{z.korisnickoime}
+    </h:column>
+    <h:column>
+				<f:facet name="header">Adresa računala</f:facet>
+        #{z.adresaracunala}
+    </h:column>
+    
+    <h:column>
+				<f:facet name="header">IP adresa računala</f:facet>
+        #{z.ipadresaracunala}
+    </h:column>
+    
+    <h:column>
+				<f:facet name="header">Opis rada</f:facet>
+        #{z.opisrada}
+    </h:column>
+
+		</h:dataTable>
+
+	</ui:define>
+	<ui:define name="nav">
+	</ui:define>
+</ui:composition>

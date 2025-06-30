@@ -1,0 +1,42 @@
+<ui:composition template="predlozak.xhtml"
+	xmlns:ui="jakarta.faces.facelets" xmlns:h="jakarta.faces.html"
+	xmlns:f="jakarta.faces.core">
+
+	<ui:define name="title">Zadaća 3 - Dodaj novog korisnika</ui:define>
+	<ui:define name="content">
+		<h2>Dodaj novog korisnika</h2>
+		<br />
+        <h:form>
+            <table>
+                <tr>
+                    <td>Korisničko ime:</td>
+                    <td><h:inputText value="#{korisnici.korisnik.korisnik}" required="true" /></td>
+                </tr>
+                <tr>
+                    <td>Ime:</td>
+                    <td><h:inputText value="#{korisnici.korisnik.ime}" required="true" /></td>
+                </tr>
+                <tr>
+                    <td>Prezime:</td>
+                    <td><h:inputText value="#{korisnici.korisnik.prezime}" required="true" /></td>
+                </tr>
+                <tr>
+                    <td>Lozinka:</td>
+                    <td><h:inputSecret value="#{korisnici.korisnik.lozinka}" required="true" /></td>
+                </tr>
+                <tr>
+                    <td>Email:</td>
+                    <td><h:inputText value="#{korisnici.korisnik.email}" required="true" /></td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <h:commandButton value="Dodaj korisnika" action="#{korisnici.postKorisnik}" />
+                    </td>
+                </tr>
+            </table>
+        </h:form>
+
+	</ui:define>
+	<ui:define name="nav">
+	</ui:define>
+</ui:composition>

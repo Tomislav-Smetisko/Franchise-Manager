@@ -1,0 +1,99 @@
+<ui:composition template="../predlozak.xhtml"
+	xmlns:ui="jakarta.faces.facelets" xmlns:h="jakarta.faces.html"
+	xmlns:f="jakarta.faces.core">
+
+	<ui:define name="title">Zadaća 3 - Nadzorna konzola partnera/restorana</ui:define>
+	<ui:define name="content">
+		<h2>Nadzorna konzola partnera/restorana</h2>
+		<br />
+
+		<h2>Statusi dijelova poslužitelja</h2>
+
+		<table border="1">
+			<tr>
+				<th>Dio poslužitelja</th>
+				<th>Status</th>
+			</tr>
+			<tr>
+				<td>Poslužitelj za kupce</td>
+				<td>#{nadzornaKonzolaPartnera.statusPosluziteljaZaKupce}</td>
+				<td><h:form>
+						<h:commandButton value="Pauziraj"
+							action="#{nadzornaKonzolaPartnera.aktivirajPauzu}" />
+					</h:form></td>
+
+				<td><h:form>
+						<h:commandButton value="Pokreni"
+							action="#{nadzornaKonzolaPartnera.aktivirajStart}" />
+					</h:form></td>
+			</tr>
+			<tr>
+				<td colspan="4"><h:form>
+						<h:commandButton value="Aktiviraj kraja rada poslužitelja Partner"
+							action="#{nadzornaKonzolaPartnera.aktivirajKraj}" />
+					</h:form></td>
+			</tr>
+		</table>
+
+		<br />
+
+		<h2>Informacije</h2>
+		<div>
+			<p>
+				Status rada poslužitelja Partner: <span id="statusRada"></span>
+			</p>
+		</div>
+		<div>
+			<p>
+				Broj otvorenih narudžbi: <span id="brojNarudzbi"></span>
+			</p>
+		</div>
+		<div>
+			<p>
+				Broj plaćenih računa: <span id="brojPlacenihRacuna"></span>
+			</p>
+		</div>
+
+		<script type="text/javascript">
+			var wsocket;
+			function connect() {
+				var adresa = window.location.pathname;
+				var dijelovi = adresa.split("/");
+				adresa = "ws://" + window.location.hostname + ":"
+						+ window.location.port + "/" + dijelovi[1]
+						+ "/ws/partneri";
+				if ('WebSocket' in window) {
+					wsocket = new WebSocket(adresa);
+				} else if ('MozWebSocket' in window) {
+					wsocket = new MozWebSocket(adresa);
+				} else {
+					alert('WebSocket nije podržan od web preglednika.');
+					return;
+				}
+				wsocket.onmessage = onMessage;
+			}
+
+			function onMessage(evt) {
+				var poruka = evt.data.split(";");
+
+				if (poruka.length == 3) {
+					document.getElementById("statusRada").innerHTML = poruka[0];
+					if (poruka[0] === "RADI") {
+						document.getElementById("statusRada").style.color = "green";
+					} else {
+						document.getElementById("statusRada").style.color = "red";
+					}
+
+					document.getElementById("brojNarudzbi").innerHTML = poruka[1];
+					document.getElementById("brojPlacenihRacuna").innerHTML = poruka[2];
+				} else {
+					document.getElementById("statusRada").innerHTML = poruka;
+				}
+			}
+
+			window.addEventListener("load", connect, false);
+		</script>
+	</ui:define>
+	<ui:define name="nav">
+	</ui:define>
+</ui:composition>

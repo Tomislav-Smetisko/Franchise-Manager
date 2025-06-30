@@ -1,0 +1,24 @@
+<ui:composition template="../predlozak.xhtml"
+	xmlns:ui="jakarta.faces.facelets" xmlns:h="jakarta.faces.html"
+	xmlns:f="jakarta.faces.core">
+
+	<ui:define name="title">Zadaća 3 - Aktiviraj spavanje</ui:define>
+	<ui:define name="content">
+
+		<h2>Aktiviraj spavanje</h2>
+		<br />
+
+		<h:panelGrid columns="1" style="margin-bottom:20px;">
+			<h:form>
+				<h:outputLabel value="Unesite broj milisekundi: " for="vrijeme" />
+					<h:inputText value="#{spavanje.vrijeme}" size="20"></h:inputText>
+
+					<h:commandButton id="submit" value=" Spavaj "
+						action="#{spavanje.spava}" />
+			</h:form>
+		</h:panelGrid>
+
+	</ui:define>
+	<ui:define name="nav">
+	</ui:define>
+</ui:composition>
